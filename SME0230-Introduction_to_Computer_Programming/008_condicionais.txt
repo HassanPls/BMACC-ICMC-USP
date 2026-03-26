@@ -1,0 +1,59 @@
+if (<condição>) {
+    <comando 1>;
+    <comando 2>;
+    .
+    .
+    .
+    <comando k>;
+} else {
+    <comando k+1>;
+    <comando k+2>;
+    .
+    .
+    .
+    <comando n>;
+}
+
+if (x >= 5) {
+    printf(‘‘O aluno passou direto’’);
+} else {
+    printf(‘‘O aluno ainda nao passou’’);
+}
+
+================================================
+
+switch (<vari ́avel>) {
+    case <valor 1>:
+        <comando 1>;
+        .
+        .
+        .
+        <comando k>;
+        break;
+        .
+        .
+        .
+    default:
+        <comando j+1>;
+        .
+        .
+        .
+        <comando n>;
+}
+
+switch (op) {
+    case ’w’:
+        printf(‘‘para cima’’);
+        break;
+    case ’s’:
+        printf(‘‘para baixo’’);
+        break;
+    case ’a’:
+        printf(‘‘para a esquerda’’);
+        break;
+    case ’d’:
+        printf(‘‘para a direita’’);
+        break;
+    default:
+        printf(‘‘comando invalido’’);
+}

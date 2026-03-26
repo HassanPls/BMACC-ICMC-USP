@@ -1,0 +1,43 @@
+Na linguagem C, os dados inteiros podem ser definidos usando short int,
+int, long int, long long int, unsigned short int, unsigned int, unsigned long
+int ou unsigned long long int.
+
+Na linguagem C, os dados reais podem ser definidos usando float, double
+ou long double.
+
+Na linguagem C, os caracteres podem ser definidos usando char ou
+unsigned char.
+
+Na linguagem C, as cadeias de caracteres podem ser definidos usando
+char[] ou unsigned char[].
+
+Na linguagem C n ̃ao  ́e poss ́ıvel definir dados do tipo lógico.
+
+Alguns exemplos de declara ̧c ̃oes de vari ́aveis s ̃ao:
+int idade;
+float nota;
+char sexo;
+char endereco[50];
+int matriculado;
+
+Exemplos de atribui ̧c ̃ao de valores a vari ́aveis, em linguagem C, s ̃ao:
+idade = 10;
+nota = 5.2;
+sexo = ’f’;
+strcpy(endereco, ‘‘P Sherman, 42, Wallaby Way, Sydney’’);
+matriculado = 1;
+
+Exemplos de leitura de dados, em linguagem C, s ̃ao:
+scanf(‘‘%d’’, &idade);
+scanf(‘‘%f’’, &nota);
+scanf(‘‘%d %f’’, &idade, &nota);
+scanf(‘‘%c’’, &sexo);
+scanf(‘‘%s’’, endereco);
+scanf(‘‘%d’’, &matriculado);
+
+Exemplos de impress ̃ao de dados, em linguagem C, s ̃ao:
+printf(‘‘%d’’, idade);
+printf(‘‘Este programa calcula sua media\n’’);
+printf(‘‘A nota foi %f’’, nota);
+printf(‘‘%c %s’’, sexo, endereco);
+printf(‘‘%d’’, matriculado);

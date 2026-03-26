@@ -1,0 +1,23 @@
+Algoritmo para trocar uma lampada:
+
+- Suponha que a lampada esta exposta (nao tem uma cupula tampando ou coisa do tipo).
+- Suponha que no comodo tem soh um interruptor, uma lampada e uma caixa de forca com soh um disjuntor.
+- Suponha que ha uma lampada nova compativel com a instalacao eletrica.
+- Suponha que a pessoa tem duas maos que podem alcançar e manusear lampadas.
+- Observacao: "soquete" eh o lugar onde enrosca a rosca da lampada.
+
+1. Verifique se o disjuntor esta ligado. Se estiver, desligue.
+2. Pegue a lampada nova com a mao A.
+3. Verifique se tem uma lampada conectada no soquete.
+3.1. Se estiver conectada:
+3.2. Alcance a lampada com a mao B, mantendo a lampada nova na mao A.
+3.3. Desrosqueie e puxe a lampada do soquete com a mao B.
+4. Alcance o soquete com a mao A.
+5. Encaixe a lampada da mao A no soquete e rosqueie.
+6. Solte a mao A da lampada nova.
+7. Va para o chao (caso nao esteja).
+8. Ligue novamente o disjuntor.
+9. Descarte a lampada antiga (caso haja).
+10. Ligue o interruptor para ver se a lampada acende.
+10.1. Se acender, fim (parabens).
+10.2. Se nao, encontre outra lampada nova e volte ao passo 1.

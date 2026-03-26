@@ -1,0 +1,11 @@
+Neste curso, utilizaremos um comando no terminal para compilar os
+programas:
+$gcc -c <nome.c>
+Este comando ir ́a gerar o arquivo objeto (nome).o. Para gerar o arquivo
+execut ́avel, basta digitar
+$gcc <nome.o> -o <nome_exec>
+Para executar o programa, digite
+$./<nome_exec>
+Forma simplificada
+$gcc <nome.c> -o <nome_exec>
+$./<nome_exec>

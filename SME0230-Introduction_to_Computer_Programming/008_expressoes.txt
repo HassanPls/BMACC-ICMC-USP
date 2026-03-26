@@ -1,0 +1,22 @@
+a + b adição
+a - b subtração
+a * b multiplicação
+a / b divisão ou divisão inteira
+a % b resto da divisão inteira
+
+Existem tamb ́em outras funções que realizam operações num ́ericas como
+potenciação (pow), radiciação (sqrt), funções trigonom ́etricas, etc.
+
+a < b menor
+a <= b menor ou igual
+a > b maior
+a >= b maior ou igual
+a == b igual
+a != b diferente
+a && b e
+a || b ou
+!a não
+
+(4 - 7) >= (4 / 2)
+-3 >= 2
+falso
