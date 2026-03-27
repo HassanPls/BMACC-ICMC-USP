@@ -23,15 +23,19 @@ for menor do que ou igual a zero, a mensagem “valor invalido” deve ser mostr
 
 int main() {
 
+    // criação das variaveis de controle
     int num, seq = 0;
     
+    // recepção das variáveis
     scanf("%d", &num);
 
+    // verificação de valores corretos
     if (num <= 0) {
         printf("valor invalido");
         return 0;
     }
     
+    // criação do resultado da sequencia
     printf("(");
     for (int i = 1; num > 1; i++) {
         printf("%d", num);
@@ -48,6 +52,7 @@ int main() {
     
     printf("1)\n");
 
+    // mostrar a quantidade de vezes até chegar no zero
     printf("%d", seq);
     
     return 0;

@@ -39,13 +39,18 @@ entradas não façam sentido, a mensagem “valor invalido” deve ser mostrada.
 #include <stdio.h>
 
 int main() {
+  // criando variáveis de controle
   int ordem, deslocamento;
   
+  // obtenção dos valores
   scanf("%d %d", &ordem, &deslocamento);
   
+  // verifica se os valores são válidos para o programa
   if (ordem <= 0 || deslocamento >= ordem || deslocamento <= -ordem) {
     printf("valor invalido");
   } else {
+
+    // percorre e printa a matriz de maneira correta
     for (int i = 1; i <= ordem; i++) {
         for (int j = 1; j <= ordem; j++) {
             if (i + deslocamento == j) {
