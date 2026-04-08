@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex3</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #curriculo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        border: 1px solid black;
+        padding: 10px;
+      }
+
+      #curriculo #information {
+        display: flex;
+        flex-direction: column;
+      }
+      #curriculo #fale {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="curriculo">
+      <h1>Seu currículo</h1>
+
+      <form action="">
+        <div id="information">
+          <label for="Nome">Nome</label>
+          <input type="text" placeholder="João Silva" />
+          <label for="Email">Email</label>
+          <input type="email" />
+          <label for="Telefone">Telefone</label>
+          <input type="number" />
+        </div>
+        <hr />
+        <div id="fale">
+          <label for="Fale">Fale sobre você</label>
+          <textarea name="Fale" id="Fale"></textarea>
+        </div>
+        <div style="border: 3px dashed blue">
+          Tecnologias
+          <div>
+            <input type="checkbox" name="html" id="html" />
+            <label for="html">html</label>
+          </div>
+          <div>
+            <input type="checkbox" name="css" id="css" />
+            <label for="css">css</label>
+          </div>
+          <div>
+            <input type="checkbox" name="js" id="js" />
+            <label for="js">js</label>
+          </div>
+          <div>
+            <input type="checkbox" name="python" id="python" />
+            <label for="python">python</label>
+          </div>
+          <div>
+            <input type="checkbox" name="Chat GPT" id="Chat GPT" />
+            <label for="Chat GPT">Chat GPT</label>
+          </div>
+          <div>
+            <input type="checkbox" name="assembly" id="assembly" />
+            <label for="assembly">assembly</label>
+          </div>
+        </div>
+
+        <div>
+          <p>Sua formação</p>
+          <select name="tipo" id="tipo">
+            <option value="Graduação">Graduação</option>
+            <option value="Mestrado">Mestrado</option>
+            <option value="Pos-doutorado">Pos-doutorado</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          style="width: 100%; background-color: cornflowerblue"
+        >
+          Enviar
+        </button>
+        <p style="color: red">Seus dados serão usados para treinar nossa IA</p>
+      </form>
+    </div>
+  </body>
+</html>
