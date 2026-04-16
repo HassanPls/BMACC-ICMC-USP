@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex1</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100dvh;
+        }
+
+        header {
+            padding: 10px;
+            width: 100%;
+            height: 80px;
+            background-color: green;
+            position: sticky;
+            top: 0;
+        }
+
+        #corpo-musicas {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            background-color: pink;
+
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: 2fr 5fr 2fr;
+            transition: ease-in-out 0.5s all;
+        }
+
+        #corpo-musicas div {
+            margin: 10px;
+            background-color: brown;
+        }
+
+        footer {
+            height: 80px;
+            padding: 10px;
+            width: 100%;
+            background-color: blue;
+            position: fixed;
+            bottom: 0;
+        }
+
+        @media screen and (max-width: 800px) {
+            #corpo-musicas {
+                grid-template-columns: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header><h1>Spotify</h1> - pesquisa</header>
+    <div id="corpo-musicas">
+        <div>playlists</div>
+        <div>musicas</div>
+        <div>musica</div>
+    </div>
+    <footer>player</footer>
+</body>
+</html>
