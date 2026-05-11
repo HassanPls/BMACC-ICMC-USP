@@ -1,12 +1,43 @@
 /*
  * Nome: Pedro Luiz Mariano Vogado Filho - Número USP: 18193952
- * Nome: Lorenzo Zoculin de Alcantara - Número USP: 18119155
+ * Nome: Lorenzo Zoculin de Alcantara - Número USP: 181191
  */
 
 #include <stdio.h>
 
 #define MAX_VIDA 20
 #define TOTAL_CARTAS 44
+
+int mostrarMesa(int sala[4][2], int pontos_vida, int arma_valor, int arma_limite_monstro, int cartas_na_sala)
+{
+    // --- EXIBIÇÃO DA MESA ---
+    printf("\n--- MESA ---\n");
+    printf("Vida: %d | Arma: %d (Limite: < %d)\n", pontos_vida, arma_valor, arma_limite_monstro);
+
+    for (int i = 0; i < cartas_na_sala; i++)
+    {
+        printf("Carta %d: ", i + 1);
+
+        // Se o valor for 0, significa que a carta já foi resolvida neste turno
+        if (sala[i][0] == 0)
+        {
+            printf("[ USADA / DERROTADA ]\n");
+        }
+        else
+        {
+            printf("Valor %d | Naipe ", sala[i][0]);
+            if (sala[i][1] == 0)
+                printf("(Paus - Monstro)\n");
+            else if (sala[i][1] == 1)
+                printf("(Espadas - Monstro)\n");
+            else if (sala[i][1] == 2)
+                printf("(Ouros - Arma)\n");
+            else if (sala[i][1] == 3)
+                printf("(Copas - Pocao)\n");
+        }
+    }
+    return 0;
+}
 
 int main()
 {
@@ -88,32 +119,7 @@ int main()
         }
         else
         {
-            // --- EXIBIÇÃO DA MESA ---
-            printf("\n--- MESA ---\n");
-            printf("Vida: %d | Arma: %d (Limite: < %d)\n", pontos_vida, arma_valor, arma_limite_monstro);
-
-            for (int i = 0; i < cartas_na_sala; i++)
-            {
-                printf("Carta %d: ", i + 1);
-
-                // Se o valor for 0, significa que a carta já foi resolvida neste turno
-                if (sala[i][0] == 0)
-                {
-                    printf("[ USADA / DERROTADA ]\n");
-                }
-                else
-                {
-                    printf("Valor %d | Naipe ", sala[i][0]);
-                    if (sala[i][1] == 0)
-                        printf("(Paus - Monstro)\n");
-                    else if (sala[i][1] == 1)
-                        printf("(Espadas - Monstro)\n");
-                    else if (sala[i][1] == 2)
-                        printf("(Ouros - Arma)\n");
-                    else if (sala[i][1] == 3)
-                        printf("(Copas - Pocao)\n");
-                }
-            }
+            mostrarMesa(sala, pontos_vida, arma_valor, arma_limite_monstro, cartas_na_sala);
 
             // --- DECISÃO: EVITAR OU ENFRENTAR ---
             if (sala_anterior_evitada == 0)
@@ -154,12 +160,14 @@ int main()
 
                 while (resolvidas < 3 && pontos_vida > 0)
                 {
+                    mostrarMesa(sala, pontos_vida, arma_valor, arma_limite_monstro, cartas_na_sala);
                     printf("\nEscolha uma carta para enfrentar (1-4): ");
                     scanf("%d", &escolha);
 
                     // Validação: a escolha deve ser entre 1 e 4 E a carta não pode ter sido usada
                     if (escolha >= 1 && escolha <= 4 && sala[escolha - 1][0] != 0)
                     {
+
                         int v_carta = sala[escolha - 1][0];
                         int n_carta = sala[escolha - 1][1];
 
