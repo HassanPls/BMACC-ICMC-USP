@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex1</title>
+</head>
+<body>
+    <script>
+        let alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let contar = 0, contE;
+
+        for (let i = 0; i < alfabeto.length; i++) {
+            const letra = alfabeto[i];
+            if (letra == "E") {
+                contE = i;
+            }
+            contar++;
+        }
+
+        console.log(`Temos ${contar} letras no alfabeto e a letra E é a ${contE}° do alfabeto`);
+    </script>
+</body>
+</html>
