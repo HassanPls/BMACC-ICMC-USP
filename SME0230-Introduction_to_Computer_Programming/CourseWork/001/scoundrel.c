@@ -1,6 +1,7 @@
 /*
  * Nome: Pedro Luiz Mariano Vogado Filho - Número USP: 18193952
  * Nome: Lorenzo Zoculin de Alcantara - Número USP: 181191
+ * Nome: Nicole Clarice Teixeira Paiva - Número USP: 18124662
  */
 
 #include <stdio.h>
