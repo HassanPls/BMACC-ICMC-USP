@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX_VIDA 20
 #define TOTAL_CARTAS 44
@@ -81,20 +82,21 @@ int main()
     printf("Digite um numero inteiro para embaralhar a Masmorra: ");
     scanf("%d", &semente); // O usuário fornece a "aleatoriedade"
 
-    // Realiza uma série de trocas fixas baseadas no número digitado
-    for (int i = 0; i < TOTAL_CARTAS; i++)
+    // Percorre o baralho de trás para frente
+    for (int i = TOTAL_CARTAS - 1; i > 0; i--)
     {
-        // Calcula um índice de troca pseudo-aleatório manualmente
-        int j = (semente + i * 7) % TOTAL_CARTAS;
+        // Escolhe um índice aleatório 'j' entre 0 e i (inclusive)
+        int j = rand() % (i + 1);
 
-        // Troca os valores entre a posição i e j
+        // Troca a carta da posição 'i' com a carta da posição aleatória 'j'
+        // Troca o VALOR da carta
         int temp_valor = masmorra[i][0];
-        int temp_naipe = masmorra[i][1];
-
         masmorra[i][0] = masmorra[j][0];
-        masmorra[i][1] = masmorra[j][1];
-
         masmorra[j][0] = temp_valor;
+
+        // Troca o NAIPE da carta
+        int temp_naipe = masmorra[i][1];
+        masmorra[i][1] = masmorra[j][1];
         masmorra[j][1] = temp_naipe;
     }
 

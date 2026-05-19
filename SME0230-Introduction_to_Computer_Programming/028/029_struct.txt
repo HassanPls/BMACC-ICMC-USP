@@ -1,0 +1,57 @@
+Uma forma de definir registros em linguagem C  ́e:
+
+struct <nome do registro> {
+    <tipo 1> <campo 1>;
+    <tipo 2> <campo 2>;
+    .
+    .
+    .
+    <tipo n> <campo n>;
+};
+
+<nome do registro>  ́e o nome do registro criado. <campo 1>, ...,
+<campo n> s ̃ao nomes dos campos que cont ́em os dados do registro e
+<tipo 1>, ..., <tipo n> s ̃ao os tipos dos respectivos campos.
+
+Um exemplo de defini ̧c ̃ao de um registro em linguagem C  ́e:
+
+struct aluno {
+    int nota1, nota2;
+    float media;
+};
+
+Definindo o registro desta forma, para declarar uma vari ́avel, fazemos:
+struct <nome do registro> <nome da vari ́avel>;
+
+No caso do exemplo, podemos declarar
+struct aluno x;
+
+Outra forma de definir registros  ́e:
+
+typedef struct <nome registro> {
+    <tipo 1> <campo 1>;
+    <tipo 2> <campo 2>;
+    .
+    .
+    .
+    <tipo n> <campo n>;
+} <nome do novo tipo>;
+
+<nome registro>  ́e o nome do registro criado (neste caso, ele  ́e
+opcional). <campo 1>, ..., <campo n> s ̃ao nomes dos campos que cont ́em
+os dados do registro e <tipo 1>, ..., <tipo n> s ̃ao os tipos dos
+respectivos campos. <nome do novo tipo>  ́e o nome dado a este
+registro, que ser ́a para definir vari ́aveis deste tipo.
+
+Um exemplo de defini ̧c ̃ao de um registro em linguagem C  ́e:
+
+typedef struct aluno {
+    int nota1, nota2;
+    float media;
+} aluno;
+
+Definindo o registro desta forma, para declarar uma vari ́avel, fazemos:
+<nome do novo tipo> <nome da vari ́avel>;
+
+No caso do exemplo, podemos declarar
+aluno x;

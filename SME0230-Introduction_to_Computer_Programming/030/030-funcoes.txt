@@ -1,0 +1,55 @@
+Para definir uma fun ̧c ̃ao em linguagem C, fazemos:
+<tipo> <nome>(<tipo 1> <par 1>, ..., <tipo n> <par n>){
+    <declara ̧c~oes de vari ́aveis>;
+    <comando 1>;
+    .
+    .
+    .
+    <comando k>;
+    return(<valor>);
+}
+
+Um exemplo de defini ̧c ̃ao de uma fun ̧c ̃ao em linguagem C  ́e:
+
+float media(int a, int b) {
+    float m;
+    m = (a + b)/2.0;
+    return(m);
+}
+
+Outra maneira de definir a mesma fun ̧c ̃ao:
+
+float media(int a, int b) {
+    return((a + b)/2.0);
+}
+
+Depois de definida a fun ̧c ̃ao, uma forma de us ́a-la  ́e:
+<nome vari ́avel> = <nome fun ̧c~ao>(<param 1>, ..., <param n>);
+
+Aqui:
+<nome vari ́avel>  ́e o nome da vari ́avel que deve armazenar o valor
+devolvido pela fun ̧c ̃ao, ap ́os sua execu ̧c ̃ao.
+
+<nome fun ̧c~ao>  ́e o nome da fun ̧c ̃ao a ser executada.
+
+<param 1>, ..., <param n> s ̃ao os valores a serem usados na
+fun ̧c ̃ao, na ordem em que foram definidos.
+
+Em alguns casos, a fun ̧c ̃ao n ̃ao precisa devolver nenhum valor. Nestes
+casos, definimos o <tipo> como void e <valor> como vazio (ou void).
+Se a fun ̧c ̃ao n ̃ao precisa de nenhum parˆametro, basta n ̃ao escrever nada
+entre os parˆenteses.
+
+Um exemplo  ́e:
+void imprime par() {
+    int i;
+    for(i = 0; i <= 10; i = i + 2) {
+        printf(‘‘%d ’’, i);
+    }
+    printf(‘‘\n’’);
+    return;
+}
+
+Neste caso, como a fun ̧c ̃ao n ̃ao devolve nenhum valor, podemos execut ́a-la
+da sequinte maneira:
+imprime par();
