@@ -7,9 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_VIDA 20
-#define TOTAL_CARTAS 44
-
 int mostrarMesa(int sala[4][2], int pontos_vida, int arma_valor, int arma_limite_monstro, int cartas_na_sala)
 {
     // --- EXIBIÇÃO DA MESA ---
@@ -44,7 +41,7 @@ int mostrarMesa(int sala[4][2], int pontos_vida, int arma_valor, int arma_limite
 int main()
 {
     int masmorra[200][2];          // Cartas na masmorra (200 para poder pular a sala)
-    int pontos_vida = MAX_VIDA;    // Quantidade de vida do player
+    int pontos_vida = 20;    // Quantidade de vida do player
     int arma_valor = 0;            // Forca da arma
     int arma_limite_monstro = 15;  // Limite que a arma pode enfrentar
     int jogo_ativo = 1;            // Controle para o jogo continuar rodando
@@ -54,7 +51,7 @@ int main()
     int escolheu_evitar = 0;       // Para controlar se a sala atual foi evitada
     int sala_anterior_evitada = 0; // Para impedir evitar duas seguidas
 
-    int total_atual_deck = TOTAL_CARTAS;
+    int total_atual_deck = 44;
 
     // --- PREPARAÇÃO DO BARALHO ---
     int k = 0;
@@ -80,7 +77,7 @@ int main()
     // --- EMBARALHAMENTO ---
 
     // Percorre o baralho de trás para frente
-    for (int i = TOTAL_CARTAS - 1; i > 0; i--)
+    for (int i = 44 - 1; i > 0; i--)
     {
         // Escolhe um índice aleatório 'j' entre 0 e i (inclusive)
         int j = rand() % (i + 1);
@@ -234,8 +231,8 @@ int main()
                                 printf("Voce usou uma Pocao de valor %d!\n", v_carta);
                                 pontos_vida += v_carta;
                                 usou_pocao_nesta_sala = 1;
-                                if (pontos_vida > MAX_VIDA)
-                                    pontos_vida = MAX_VIDA;
+                                if (pontos_vida > 20)
+                                    pontos_vida = 20;
                             }
                             else
                             {
