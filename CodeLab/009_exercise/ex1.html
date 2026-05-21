@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex1</title>
+    <style>
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #galeria {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card .front, .card .back {
+            width: 300px;
+            height: 300px;
+            padding: 10px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .card .front img {
+            width: 300px;
+            height: 300px;
+        }
+
+        .card .back {
+            text-align: center;
+        }
+
+        .off {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Galeria Van Gogh</h1>
+        <div>
+            <button>Anterior</button>
+            <button>Proxima</button>
+        </div>
+    </header>
+    <hr>
+    <div id="galeria">
+    </div>
+
+    <script>
+        const obras = [];
+
+const obra1 = {
+            title: "A noite estrelada",
+            artist: "Vincent van Gogh",
+            year: 1889,
+            image: "https://th.bing.com/th/id/R.8512f8e148d958f2c32668bbcbb94439?rik=p6kChDUZjPym2w&riu=http%3a%2f%2fwww.infoescola.com%2fwp-content%2fuploads%2f2013%2f09%2fnoite-estrelada.jpg&ehk=Dc7ASxPuhOyPrUAOn%2bhYszC603xCNdWA%2beOCpVZgmhM%3d&risl=&pid=ImgRaw&r=0"
+        }
+        const obra2 = {
+            title: "Vaso com 12 girassóis",
+            artist: "Vincent van Gogh",
+            year: 1888,
+            image: "https://tse1.mm.bing.net/th/id/OIP.Z9fpb5RRImB2vM3XNxkmTQHaJf?rs=1&pid=ImgDetMain&o=7&rm=3"
+        }
+        const obra3 = {
+            title: "Autorretrato com Chapéu de Feltro Cinzento",
+            artist: "Vincent van Gogh",
+            year: 1887,
+            image: "https://th.bing.com/th/id/R.7b98bf18b9703bc59a794f2c7eb31092?rik=JXowbU2l%2bAN3gQ&pid=ImgRaw&r=0"
+        }
+        const obra4 = {
+            title: "O Quarto em Arles",
+            artist: "Vincent van Gogh",
+            year: 1888,
+            image: "https://th.bing.com/th/id/R.ee87b7f239db746c0caf1dcac75e6c72?rik=zvnImLXnANhakA&riu=http%3a%2f%2f4.bp.blogspot.com%2f_tWYzp3y4ZO8%2fTPRwjzSZdOI%2fAAAAAAAAAOk%2f5N38PoKnK8k%2fs1600%2fGogh%2b1889%2bQuarto%2bArles-2%2525C2%2525AA%2bVers%2525C3%2525A3o.jpg&ehk=5PZlGSJmWtizOUTJrXOApxsL6tQHY%2fktjVbutEq%2bWXs%3d&risl=&pid=ImgRaw&r=0"
+        }
+        const obra5 = {
+            title: "Amendoeira em Flor",
+            artist: "Vincent van Gogh",
+            year: 1890,
+            image: "https://th.bing.com/th/id/R.71bf601c061ad850f99e8a388860ec37?rik=EifF2%2bYv6hoj3Q&pid=ImgRaw&r=0"
+        }
+        const obra6 = {
+            title: "Terraço do Café à Noite",
+            artist: "Vincent van Gogh",
+            year: 1888,
+            image: "https://live.staticflickr.com/3232/2963060088_61cca89102_b.jpg"
+        }
+        const obra7 = {
+            title: "Os Comedores de Batata",
+            artist: "Vincent van Gogh",
+            year: 1885,
+            image: "https://santhatela.com.br/wp-content/uploads/2020/01/van-gogh-os-comedores-de-batata-d.jpg"
+        }
+        const obra8 = {
+            title: "Campo de Trigo com Corvos",
+            artist: "Vincent van Gogh",
+            year: 1890,
+            image: "https://cdn03.plentymarkets.com/0oyf0h0zqec7/item/images/61078/full/C46362-61078.jpg"
+        }
+
+        obras.push(obra1, obra2, obra3, obra4, obra5, obra6, obra7, obra8);
+
+        obras.forEach(obra => criarCardDaObra(obra));
+
+        let start, page, limit;
+
+        function criarCardDaObra(obra) {
+            const galeria = document.getElementById("galeria");
+            const card = document.createElement("div")
+            card.classList.add("card");
+            const front = document.createElement("div");
+            front.classList.add("front");
+            front.style.display = "block"
+            const back = document.createElement("div");
+            back.classList.add("back");
+            back.style.display = "none";
+            const p = document.createElement("p");
+            p.innerText = `${obra.title}\n${obra.artist}\n${obra.year}`
+            back.appendChild(p);
+            card.appendChild(front);
+            card.appendChild(back);
+
+            card.addEventListener("click", () => {
+                if (front.style.display == "none") {
+                    front.style.display = "block";
+                    back.style.display = "none";
+                } else if (front.style.display == "block") {
+                    front.style.display = "none";
+                    back.style.display = "block";
+                }
+            })
+
+            const image = document.createElement("img");
+            image.setAttribute("src", obra.image);
+            front.appendChild(image);
+            
+            galeria.appendChild(card);
+        }
+    </script>
+</body>
+</html>
