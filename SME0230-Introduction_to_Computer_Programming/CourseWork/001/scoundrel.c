@@ -254,7 +254,7 @@ int main()
                         printf("Escolha invalida ou carta ja utilizada! Tente novamente.\n");
                     }
 
-                    system("cls");
+                    //system("cls");
                 }
 
                 // REORGANIZAR A SOBRA
