@@ -1,6 +1,6 @@
 /*
  * Nome: Pedro Luiz Mariano Vogado Filho - Número USP: 18193952
- * Nome: Lorenzo Zoculin de Alcantara - Número USP: 181191
+ * Nome: Lorenzo Zoculin de Alcantara - Número USP: 18119155
  * Nome: Nicole Clarice Teixeira Paiva - Número USP: 18124662
  */
 
@@ -180,17 +180,48 @@ int main()
                         if (n_carta == 0 || n_carta == 1)
                         {
                             printf("Voce enfrentou um Monstro de valor %d!\n", v_carta);
-                            // Se tiver arma e o monstro for menor que o último derrotado
-                            if (arma_valor > 0 && v_carta < arma_limite_monstro)
+
+                            int tipo_ataque = 0;
+                            // Se tiver arma, pergunta como quer atacar
+                            if (arma_valor > 0)
                             {
-                                int dano = v_carta - arma_valor;
-                                if (dano > 0)
-                                    pontos_vida -= dano;
-                                arma_limite_monstro = v_carta; // Nova restrição da arma
+                                do
+                                {
+                                    printf("Deseja atacar com a arma ou com as maos? (1-Arma, 2-Maos): ");
+                                    scanf("%d", &tipo_ataque);
+                                } while (tipo_ataque != 1 && tipo_ataque != 2);
                             }
                             else
                             {
-                                pontos_vida -= v_carta; // Sem arma ou monstro muito forte
+                                // Se não tem arma, o ataque é obrigatoriamente com as mãos
+                                tipo_ataque = 2;
+                            }
+
+                            // --- RESOLUÇÃO DO COMBATE ---
+                            if (tipo_ataque == 1)
+                            {
+                                // Atacando com a ARMA
+                                if (v_carta < arma_limite_monstro)
+                                {
+                                    int dano = v_carta - arma_valor;
+                                    if (dano > 0)
+                                    {
+                                        pontos_vida -= dano;
+                                    }
+                                    arma_limite_monstro = v_carta; // Nova restrição da arma
+                                }
+                                else
+                                {
+                                    // Monstro igual ou maior que o limite: toma dano cheio e não usa a arma
+                                    printf("O monstro e muito forte para sua restricao de arma atual! Voce sofreu dano direto.\n");
+                                    pontos_vida -= v_carta;
+                                }
+                            }
+                            else
+                            {
+                                // Atacando com as MÃOS (Dano cheio, sem alterar restrição da arma)
+                                printf("Voce lutou com as maos limpas!\n");
+                                pontos_vida -= v_carta;
                             }
                         }
                         // ARMA (Ouros=2)
