@@ -49,7 +49,6 @@ int main()
     int arma_limite_monstro = 15;  // Limite que a arma pode enfrentar
     int jogo_ativo = 1;            // Controle para o jogo continuar rodando
     int indice_topo = 0;           // Lugar em que a masmorra está no indice do vetor masmorra
-    int semente;                   // Indice para embaralhar
     int sala[4][2];                // As 4 cartas disponíveis na mesa
     int cartas_na_sala = 0;        // Quantas cartas estão atualmente na sala
     int escolheu_evitar = 0;       // Para controlar se a sala atual foi evitada
@@ -78,9 +77,7 @@ int main()
         }
     }
 
-    // --- EMBARALHAMENTO MANUAL ---
-    printf("Digite um numero inteiro para embaralhar a Masmorra: ");
-    scanf("%d", &semente); // O usuário fornece a "aleatoriedade"
+    // --- EMBARALHAMENTO ---
 
     // Percorre o baralho de trás para frente
     for (int i = TOTAL_CARTAS - 1; i > 0; i--)
@@ -99,8 +96,6 @@ int main()
         masmorra[i][1] = masmorra[j][1];
         masmorra[j][1] = temp_naipe;
     }
-
-    printf("Masmorra preparada!\n");
 
     while (jogo_ativo && pontos_vida > 0)
     {
@@ -258,6 +253,8 @@ int main()
                     {
                         printf("Escolha invalida ou carta ja utilizada! Tente novamente.\n");
                     }
+
+                    system("cls");
                 }
 
                 // REORGANIZAR A SOBRA
