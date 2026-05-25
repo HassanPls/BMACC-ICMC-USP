@@ -1,0 +1,70 @@
+Para declarar um ponteiro em linguagem C, utilizamos a seguinte sintaxe:
+
+C
+<tipo> *<nome>;
+<nome>: É o nome do ponteiro (a variável que armazena o endereço de memória).
+
+*: Indica que a variável é um ponteiro.
+
+<tipo>: Indica o tipo de dado armazenado no endereço apontado.
+
+Exemplos de declaração:
+C
+int *pi;
+float *pf;
+char *pc;
+double *pd;
+Conceitos Básicos
+Tamanho: Como ponteiros são variáveis, eles ocupam um espaço na memória (geralmente 8 bytes em sistemas de 64 bits).
+
+Conteúdo: O conteúdo de um ponteiro é basicamente um número inteiro que representa um endereço de memória.
+
+Inicialização: Ao declarar um ponteiro, ele não possui um conteúdo definido.
+
+Atribuição: Usamos o operador = para atribuir valores e o operador & (endereço de) para obter a localização de uma variável existente.
+
+Exemplo:
+
+C
+int x, y;
+int *p;
+
+p = &x; // O ponteiro p agora armazena o endereço de x (p aponta para x)
+O Operador de Desreferenciação (*)
+O operador *<ponteiro> é utilizado para acessar ou modificar o conteúdo armazenado no endereço de memória apontado.
+
+Exemplo:
+
+C
+x = 10;
+y = *p; // y recebe o valor armazenado em x (10)
+printf("%d\n", y);
+Como p aponta para x, *p é equivalente ao conteúdo de x.
+
+Exemplo Prático: Função Troca
+Abaixo, um exemplo clássico de uso de ponteiros para trocar os valores de duas variáveis:
+
+C
+#include <stdio.h>
+
+void troca(int *a, int *b) {
+    int tmp;
+    tmp = *a;
+    *a = *b;
+    *b = tmp; // Corrigido: não precisa do * em tmp
+}
+
+int main() {
+    int x, y;
+    
+    printf("Digite os valores de x e y: ");
+    scanf("%d %d", &x, &y);
+    
+    printf("Antes: x = %d e y = %d.\n", x, y);
+    
+    troca(&x, &y); // Passamos o endereço das variáveis
+    
+    printf("Depois: x = %d e y = %d.\n", x, y);
+    
+    return 0;
+}
