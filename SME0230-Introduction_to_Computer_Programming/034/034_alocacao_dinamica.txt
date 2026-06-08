@@ -1,0 +1,22 @@
+Alocação de Memória em C
+
+Ao declarar um vetor como int vet[5];, dizemos que ele possui alocação estática. Isso significa que o tamanho e o tempo de vida do vetor são definidos em tempo de compilação, o que impõe algumas limitações práticas:
+
+Tamanho fixo: Não é possível alterar o tamanho do vetor durante a execução (por exemplo, conforme a necessidade do usuário).
+Gerenciamento rígido: Não é possível desalocar o vetor manualmente para liberar memória durante o programa.
+Escopo limitado: O vetor é automaticamente destruído quando a função onde foi declarado termina sua execução.
+
+Para contornar essas limitações, utilizamos a alocação dinâmica. Para alocar um vetor com um tamanho definido em tempo de execução, utilizamos as funções da biblioteca <stdlib.h>:
+
+<tipo> *<nome>;
+<nome> = (<tipo> *) malloc(<tamanho> * sizeof(<tipo>));
+
+Pontos Importantes sobre a Alocação Dinâmica:
+
+Verificação de segurança: A função malloc pode falhar caso o sistema não tenha memória suficiente. Portanto, é uma boa prática sempre verificar se o ponteiro retornado é diferente de NULL antes de utilizá-lo.
+
+Ciclo de vida: Diferente da alocação estática, a memória alocada com malloc não é liberada automaticamente ao fim da função. Ela permanece ocupando o espaço na memória até que o programa seja encerrado ou até que a memória seja explicitamente liberada pelo desenvolvedor.
+
+Desalocação manual: Para liberar o espaço ocupado pelo vetor, utiliza-se a função free:
+
+free(<nome>);
