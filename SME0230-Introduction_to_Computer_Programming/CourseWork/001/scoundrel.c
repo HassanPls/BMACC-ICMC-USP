@@ -106,6 +106,13 @@ int main()
             indice_topo++;
         }
 
+        // Ajustar caso a sala tiver menos de 4 cartas
+        for (int i = cartas_na_sala; i < 4; i++)
+        {
+            sala[i][0] = 0;
+            sala[i][1] = 0;
+        }
+
         // Se a sala não tem 4 cartas e a masmorra acabou, o jogo termina
         if (cartas_na_sala == 0 && indice_topo >= total_atual_deck)
         {
@@ -153,14 +160,17 @@ int main()
                 int resolvidas = 0;
                 int escolha;
 
-                while (resolvidas < 3 && pontos_vida > 0)
+                // Quantidades de cartas para resolver de forma dinâmica
+                int cartas_para_resolver = (cartas_na_sala == 4) ? 3 : cartas_na_sala;
+
+                while (resolvidas < cartas_para_resolver && pontos_vida > 0)
                 {
                     mostrarMesa(sala, pontos_vida, arma_valor, arma_limite_monstro, cartas_na_sala);
                     printf("\nEscolha uma carta para enfrentar (1-4): ");
                     scanf("%d", &escolha);
 
-                    // Validação: a escolha deve ser entre 1 e 4 E a carta não pode ter sido usada
-                    if (escolha >= 1 && escolha <= 4 && sala[escolha - 1][0] != 0)
+                    // Validação: a escolha deve ser entre 1 e (a quantidade de cartas na sala) E a carta não pode ter sido usada
+                    if (escolha >= 1 && escolha <= cartas_na_sala && sala[escolha - 1][0] != 0)
                     {
 
                         int v_carta = sala[escolha - 1][0];
