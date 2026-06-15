@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Função que mostra a mesa
 int mostrarMesa(int sala[4][2], int pontos_vida, int arma_valor, int arma_limite_monstro, int cartas_na_sala)
 {
     // --- EXIBIÇÃO DA MESA ---
@@ -38,10 +39,137 @@ int mostrarMesa(int sala[4][2], int pontos_vida, int arma_valor, int arma_limite
     return 0;
 }
 
+// Função que avalia a carta
+int avaliarCarta(int valor, int naipe, int vida, int arma_valor, int arma_limite, int usou_pocao)
+{
+    int score = 0;
+
+    // 1. POÇÃO (Copas)
+    if (naipe == 3)
+    {
+        if (usou_pocao)
+            return -100;         // Já usou no turno, ignora
+        score = (20 - vida) * 5; // Quanto menos vida, maior a urgência
+    }
+
+    // 2. ARMA (Ouros)
+    else if (naipe == 2)
+    {
+        if (valor > arma_valor)
+            score = 30 + valor; // Se a arma atual for ruim, troque
+        else
+            score = -20; // Não troque por arma pior
+    }
+
+    // 3. MONSTROS (Paus/Espadas)
+    else if (naipe == 0 || naipe == 1)
+    {
+        // Se o monstro for maior que o limite da arma, ele é muito perigoso
+        if (valor >= arma_limite)
+        {
+
+            if (valor >= vida)
+                score = -1000; // Se for lutar desarmado e o dano matar, score muito negativo
+            else
+                score = -50 + (15 - valor); // Dano inevitável, tenta minimizar
+        }
+        else
+        {
+            // O monstro é enfrentável com a arma
+            int dano = (valor - arma_valor > 0) ? (valor - arma_valor) : 0;
+            if (dano >= vida)
+                score = -1000; // Morte certa
+            else
+                score = 20 - dano; // Quanto menos dano, melhor
+        }
+    }
+
+    return score;
+}
+
+// Função para escolher a carta
+int escolherCarta(int (*sala)[2], int cartas_na_sala, int vida, int arma_valor, int arma_limite, int usou_pocao, int modo)
+{
+    if (modo == 0)
+    { // Humano joga
+        int escolha;
+        scanf("%d", &escolha);
+        return escolha - 1; // Retorna o índice (0 a 3)
+    }
+    else
+    { // IA joga
+        int melhor_indice = -1;
+        int maior_score = -2000;
+
+        for (int i = 0; i < cartas_na_sala; i++)
+        {
+            if (sala[i][0] != 0)
+            {
+                int s = avaliarCarta(sala[i][0], sala[i][1], vida, arma_valor, arma_limite, usou_pocao);
+                if (s > maior_score) // Se o score da carta for maior, altera o maior_score e vira o melhor indice
+                {
+                    maior_score = s;
+                    melhor_indice = i;
+                }
+            }
+        }
+        printf("IA escolheu a carta %d\n", melhor_indice + 1);
+        return melhor_indice + 1;
+    }
+}
+
+int escolherEvitar(int (*sala)[2], int cartas_na_sala, int vida, int arma_valor, int arma_limite, int usou_pocao)
+{
+    int total_score = 0;
+    for (int i = 0; i < cartas_na_sala; i++)
+    {
+        total_score += avaliarCarta(sala[i][0], sala[i][1], vida, arma_valor, arma_limite, usou_pocao);
+    }
+    // Se a soma de scores da sala for muito baixa ou negativa, a IA evita
+    return (total_score < 0) ? 1 : 0;
+}
+
+int ArmaOuMao(int modo, int v_carta, int arma_valor, int arma_limite)
+{
+    if (modo == 0)
+    { // Humano
+        int tipo_ataque;
+        do
+        {
+            printf("Deseja atacar com a arma ou com as maos? (1-Arma, 2-Maos): ");
+            scanf("%d", &tipo_ataque);
+        } while (tipo_ataque != 1 && tipo_ataque != 2);
+        return tipo_ataque;
+    }
+    else
+    { // IA
+        // Lógica da IA:
+        // 1. Se o monstro for menor que o limite, atacar com arma é quase sempre melhor
+        // 2. Se o monstro for maior que o limite, a arma é inútil (toma dano cheio)
+        if (v_carta < arma_limite)
+        {
+            // Se o dano com a arma for menor que o dano das mãos, use a arma
+            int dano_arma = (v_carta - arma_valor > 0) ? (v_carta - arma_valor) : 0;
+            int dano_maos = v_carta;
+
+            if (dano_arma <= dano_maos)
+            {
+                printf("IA escolheu atacar com a arma!\n");
+                return 1; // IA escolhe Arma
+            }
+        }
+
+        // Se a arma não ajuda, usa as mãos
+        printf("IA escolheu atacar com as maos!\n");
+        return 2;
+    }
+}
+
 int main()
 {
+    int modo = -1;                 // Humano joga (0) - IA joga (1)
     int masmorra[200][2];          // Cartas na masmorra (200 para poder pular a sala)
-    int pontos_vida = 20;    // Quantidade de vida do player
+    int pontos_vida = 20;          // Quantidade de vida do player
     int arma_valor = 0;            // Forca da arma
     int arma_limite_monstro = 15;  // Limite que a arma pode enfrentar
     int jogo_ativo = 1;            // Controle para o jogo continuar rodando
@@ -50,6 +178,7 @@ int main()
     int cartas_na_sala = 0;        // Quantas cartas estão atualmente na sala
     int escolheu_evitar = 0;       // Para controlar se a sala atual foi evitada
     int sala_anterior_evitada = 0; // Para impedir evitar duas seguidas
+    int usou_pocao_nesta_sala = 0; // Controle para pocao usada
 
     int total_atual_deck = 44;
 
@@ -94,6 +223,13 @@ int main()
         masmorra[j][1] = temp_naipe;
     }
 
+    // Escolhe quem irá jogar: Humano ou IA
+    while (modo != 0 && modo != 1)
+    {
+        printf("Quem ira jogar? \n(0) - Voce (Humano)\n(1) - Robo (IA)\n");
+        scanf("%d", &modo);
+    }
+
     while (jogo_ativo && pontos_vida > 0)
     {
         // --- PREENCHER A SALA ---
@@ -129,7 +265,15 @@ int main()
                 do
                 {
                     printf("\nDeseja evitar esta sala? (1-Sim, 0-Nao): ");
-                    scanf("%d", &escolheu_evitar);
+                    if (modo == 0)
+                    {
+                        scanf("%d", &escolheu_evitar);
+                    }
+                    else
+                    {
+                        escolheu_evitar = escolherEvitar(&sala[0], cartas_na_sala, pontos_vida, arma_valor, arma_limite_monstro, usou_pocao_nesta_sala);
+                        printf(escolheu_evitar == 1 ? "Evitou a sala" : "Nao evitou a sala");
+                    }
                 } while (escolheu_evitar != 1 && escolheu_evitar != 0);
             }
             else
@@ -154,8 +298,7 @@ int main()
             else
             {
                 // Se enfrentar: o jogador deve resolver 3 das 4 cartas
-
-                int usou_pocao_nesta_sala = 0;
+                usou_pocao_nesta_sala = 0;
                 sala_anterior_evitada = 0;
                 int resolvidas = 0;
                 int escolha;
@@ -167,7 +310,7 @@ int main()
                 {
                     mostrarMesa(sala, pontos_vida, arma_valor, arma_limite_monstro, cartas_na_sala);
                     printf("\nEscolha uma carta para enfrentar (1-4): ");
-                    scanf("%d", &escolha);
+                    escolha = escolherCarta(&sala[0], cartas_na_sala, pontos_vida, arma_valor, arma_limite_monstro, usou_pocao_nesta_sala, modo);
 
                     // Validação: a escolha deve ser entre 1 e (a quantidade de cartas na sala) E a carta não pode ter sido usada
                     if (escolha >= 1 && escolha <= cartas_na_sala && sala[escolha - 1][0] != 0)
@@ -187,11 +330,7 @@ int main()
                             // Se tiver arma, pergunta como quer atacar
                             if (arma_valor > 0)
                             {
-                                do
-                                {
-                                    printf("Deseja atacar com a arma ou com as maos? (1-Arma, 2-Maos): ");
-                                    scanf("%d", &tipo_ataque);
-                                } while (tipo_ataque != 1 && tipo_ataque != 2);
+                                tipo_ataque = ArmaOuMao(modo, v_carta, arma_valor, arma_limite_monstro);
                             }
                             else
                             {
@@ -261,7 +400,7 @@ int main()
                         printf("Escolha invalida ou carta ja utilizada! Tente novamente.\n");
                     }
 
-                    //system("cls");
+                    // system("cls");
                 }
 
                 // REORGANIZAR A SOBRA
