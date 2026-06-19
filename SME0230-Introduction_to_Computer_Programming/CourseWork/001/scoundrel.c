@@ -94,7 +94,7 @@ int escolherCarta(int (*sala)[2], int cartas_na_sala, int vida, int arma_valor, 
     { // Humano joga
         int escolha;
         scanf("%d", &escolha);
-        return escolha - 1; // Retorna o índice (0 a 3)
+        return escolha; // Retorna o índice (0 a 3)
     }
     else
     { // IA joga
@@ -118,6 +118,7 @@ int escolherCarta(int (*sala)[2], int cartas_na_sala, int vida, int arma_valor, 
     }
 }
 
+// Funcao para evitar a sala se a pontuação total da sala for muito baixa
 int escolherEvitar(int (*sala)[2], int cartas_na_sala, int vida, int arma_valor, int arma_limite, int usou_pocao)
 {
     int total_score = 0;
