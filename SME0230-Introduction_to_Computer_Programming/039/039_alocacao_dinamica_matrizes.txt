@@ -1,0 +1,124 @@
+======================================================================
+ALOCACÃO DINÂMICA DE VETORES E MATRIZES EM C
+Material de Apoio - ICMC-USP (SME0230 - IPC)
+Prof. Marina Andretta
+======================================================================
+
+1. ALOCACÃO DINÂMICA DE VETOR
+----------------------------------------------------------------------
+Para alocar um vetor com nome <nome> do tipo <tipo>, com <tamanho> 
+posições, fazemos:
+
+<tipo> *<nome>;
+<nome> = (<tipo> *) malloc(<tamanho> * sizeof(<tipo>));
+
+Como a função malloc pode não conseguir fazer a alocação, é 
+recomendável sempre verificar se o endereço armazenado em <nome> é 
+diferente de NULL.
+
+Exemplo:
+A alocação estática:
+int vet[5];
+
+Pode ser substituída pela alocação dinâmica:
+int *vet;
+vet = (int *) malloc(5 * sizeof(int));
+
+Apesar de a alocação de memória ser feita de forma diferente, o uso do 
+vetor é exatamente igual nos dois casos.
+
+Liberando a memória do vetor:
+Quando a função malloc é usada para alocar um vetor, o bloco de 
+memória alocado NÃO é liberado quando a função em que ela foi alocada 
+termina sua execução.
+
+Ela só é desalocada quando o programa termina sua execução ou quando a 
+função free é usada, da seguinte forma:
+
+free(<nome>);
+
+É importante observar que quando a memória é desalocada, o ponteiro 
+continua apontando para o mesmo endereço. Então, para evitar o 
+problema de tentar usar o bloco alocado depois da desalocação, 
+recomenda-se fazer a variável apontar para NULL:
+
+<nome> = NULL;
+
+
+2. ALOCACÃO DINÂMICA DE MATRIZES
+----------------------------------------------------------------------
+Assim como é possível fazer alocação dinâmica de vetores em linguagem 
+C, também é possível fazer alocação dinâmica de matrizes.
+
+Podemos ver uma matriz alocada estaticamente como um vetor de 
+vetores. Ao alocarmos a matriz estática:
+int mat[5][3];
+
+Podemos pensar que temos um vetor com 5 posições e, em cada posição, 
+temos um outro vetor (desta vez, com 3 inteiros).
+
+Então, para alocar uma matriz dinamicamente, alocamos um vetor (com 
+tantas posições quanto as linhas da matriz desejada) e, posteriormente, 
+alocamos um vetor para ser apontado para cada uma dessas posições.
+
+Portanto, para alocar uma matriz <nome>, com <n linhas> linhas e 
+<n colunas> colunas, do tipo <tipo>, fazemos o seguinte:
+
+<tipo> **<nome>;
+int i;
+<nome> = (<tipo> **) malloc(<n linhas> * sizeof(<tipo> *));
+if (<nome> == NULL) {
+    // Código para erro na alocação do vetor de vetores
+}
+for (i = 0; i < <n linhas>; i++) {
+    <nome>[i] = (<tipo> *) malloc(<n colunas> * sizeof(<tipo>));
+    if (<nome>[i] == NULL) {
+        // Código para erro na alocação do i-ésimo vetor
+    }
+}
+
+Exemplo Prático:
+Para alocar uma matriz 5 x 3 de inteiros, chamada mat, como no 
+exemplo de alocação estática, fazemos:
+
+int **mat;
+int i;
+mat = (int **) malloc(5 * sizeof(int *));
+if (mat == NULL) {
+    // Código para erro na alocação do vetor de vetores
+}
+for (i = 0; i < 5; i++) {
+    mat[i] = (int *) malloc(3 * sizeof(int));
+    if (mat[i] == NULL) {
+        // Código para erro na alocação do i-ésimo vetor
+    }
+}
+
+Uso da Matriz:
+Como no caso da alocação dinâmica de vetores, depois dessa alocação da 
+matriz, seu uso (para armazenar ou ler elementos) é igual ao caso em que 
+a alocação é feita estaticamente (ex: mat[i][j]).
+
+Nota Importante:
+Fazendo a alocação dinâmica, você pode ter uma "matriz" com linhas 
+com números diferentes de colunas (matrizes esparsas/irregulares). 
+Para isso, basta mudar o tamanho do vetor alocado dentro do laço 'for'. 
+Caso isso seja feito, só é preciso ter cuidado ao acessar os elementos 
+da "matriz", para que nenhum elemento que não foi alocado seja usado.
+
+
+3. DESALOCACÃO DE MATRIZES
+----------------------------------------------------------------------
+Para desalocar a matriz, precisamos desalocar cada vetor alocado usando a 
+função free. Ou seja, fazemos o processo inverso da alocação:
+
+for (i = 0; i < <n linhas>; i++) {
+    free(<nome>[i]);
+}
+free(<nome>);
+
+Como no caso de vetores, o ideal é fazer <nome> apontar para NULL depois 
+da desalocação para evitar ponteiros soltos (dangling pointers):
+
+<nome> = NULL;
+======================================================================
