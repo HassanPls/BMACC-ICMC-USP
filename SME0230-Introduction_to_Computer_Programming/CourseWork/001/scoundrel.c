@@ -404,6 +404,20 @@ int main()
                     // system("cls");
                 }
 
+                // MOSTRAR O RESULTADO FINAL DA SALA E PAUSAR
+                if (pontos_vida > 0)
+                {
+                    printf("\n>>> STATUS FINAL DA SALA <<<\n");
+                    mostrarMesa(sala, pontos_vida, arma_valor, arma_limite_monstro, cartas_na_sala);
+
+                    // Se for a IA jogando, faz o terminal pausar para você conseguir ler
+                    if (modo == 1)
+                    {
+                        printf("\n[ IA terminou a sala. Pressione ENTER para ir para a proxima... ]\n");
+                        system("pause"); // Pausa a execução (funciona bem no Windows)
+                    }
+                }
+
                 // REORGANIZAR A SOBRA
                 int indice_sobra = -1;
                 for (int i = 0; i < 4; i++)
