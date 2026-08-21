@@ -1,0 +1,87 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material do Prof. Moacir Ponti Jr.)
+Conteúdo: Análise de Algoritmos - Parte 1
+===============================================================================
+
+1. EFICIÊNCIA COMPUTACIONAL
+-------------------------------------------------------------------------------
+- Embora computadores modernos sejam extremamente rápidos, os problemas 
+  computacionais crescem mais rápido do que a velocidade do hardware.
+- A eficiência de um algoritmo é fundamental para determinar sua viabilidade:
+  * Alguns programas executam em milissegundos.
+  * Outros podem levar horas, dias ou até séculos dependendo da abordagem.
+- Definição de eficiência: está associada ao consumo de recursos computacionais, 
+  como espaço em memória, tráfego de rede e E/S de disco. Contudo, a métrica 
+  principal costuma ser o TEMPO DE EXECUÇÃO em função do TAMANHO DA ENTRADA (n).
+
+2. ABORDAGENS PARA AVALIAR EFICIÊNCIA
+-------------------------------------------------------------------------------
+A. ANÁLISE EXPERIMENTAL (Empírica):
+   - Mede o tempo real de execução de um programa (ex: utilizando time.h em C).
+   - Limitações:
+     * Exige implementação completa e testes com amostras de dados.
+     * Limitada às entradas testadas.
+     * Depende diretamente do hardware, sistema operacional, compilador e 
+       linguagem de programação.
+
+B. ANÁLISE DE ALGORITMOS (Teórica / Assintótica):
+   - Conta o número de passos/operações primitivas em função do tamanho da 
+     entrada (n).
+   - Independe de hardware, linguagem ou ambiente de execução.
+   - Passos básicos/primitivos considerados:
+     * Operações aritméticas (+, -, *, /).
+     * Comparações e atribuições.
+     * Indexação de vetores e desreferenciação de ponteiros.
+     * Chamadas e retornos de funções.
+
+3. CENÁRIOS DE ANÁLISE ASSINTÓTICA
+-------------------------------------------------------------------------------
+- Melhor Caso: Cenário mais favorável. Pouco útil na prática, pois raramente ocorre.
+- Caso Médio: Requer conhecimento da distribuição de probabilidade das entradas. 
+  É matematicamente complexo de calcular.
+- Pior Caso (RECOMENDADO):
+  * Define um limite superior (upper bound) garantido para o tempo de execução.
+  * Evita surpresas e comportamentos inesperados.
+  * Frequentemente o caso médio possui a mesma ordem de crescimento do pior caso.
+
+4. EXEMPLO DE ANÁLISE: maxVetor
+-------------------------------------------------------------------------------
+Código analisado:
+  int maxVetor (int *A, int n) {
+      int i, atualMax = *A;
+      for (i = 1; i < n; i++) {
+          if (*A > atualMax) {
+              atualMax = *A;
+          }
+          A++;
+      }
+      return atualMax;
+  }
+
+Contagem de operações no Pior Caso:
+  T(n) = 9n - 4  -> Ordem Linear
+
+Simplificação Assintótica:
+  Fatores constantes e termos de menor ordem são descartados quando 'n' cresce.
+  T(n) = 9n - 4  ≈  n  (Comportamento assintótico linear)
+
+5. HIERARQUIA DE FUNÇÕES / ORDENS DE CRESCIMENTO (Do mais rápido ao mais lento)
+-------------------------------------------------------------------------------
+1. Constante:       O(1)
+2. Logarítmica:     O(log n)
+3. Linear:          O(n)
+4. Log-Linear:      O(n log n)
+5. Quadrática:      O(n²)
+6. Cúbica:          O(n³)
+7. Exponencial:     O(2^n)
+8. Fatorial:        O(n!)
+
+6. BIBLIOGRAFIA
+-------------------------------------------------------------------------------
+- CORMEN, T.H. et al. Algoritmos: Teoria e Prática (Caps. 1-3). Campus, 2002.
+- ZIVIANI, N. Projeto de Algoritmos: com implementações em Pascal e C (Cap. 1). 
+  2.ed. Thomson, 2004.
+===============================================================================
