@@ -1,0 +1,56 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material dos Profs. Adenilso Simão e Rudinei Goularte)
+Conteúdo: Tipo Abstrato de Dados (TAD)
+===============================================================================
+
+1. CONCEITOS FUNDAMENTAIS
+-------------------------------------------------------------------------------
+- Algoritmo: Sequência de ações factíveis para resolver um problema.
+- Estrutura de Dados: Organização de dados e operações para solução de problemas.
+- Programas: Formulações concretas de algoritmos baseadas em estruturas de dados.
+- Tipo de Dado (Tipo): Caracteriza o conjunto de valores que uma variável/expressão 
+  pode assumir (primitivos como int, float; estruturados como struct).
+
+2. TIPO ABSTRATO DE DADO (TAD)
+-------------------------------------------------------------------------------
+- Definição: Modelo acompanhado de uma coleção de operações definidas sobre ele.
+- Representação: Modelo (V, O), onde:
+    * V: Conjunto de valores
+    * O: Conjunto de operações sobre estes valores
+- Independência de Implementação: O mesmo TAD pode ser implementado de diversas 
+  maneiras na mesma linguagem ou em linguagens diferentes.
+
+3. PROPRIEDADE FUNDAMENTAL: OCULTAÇÃO DE INFORMAÇÃO (INFORMATION HIDING)
+-------------------------------------------------------------------------------
+- Separação clara entre CONCEITO e IMPLEMENTAÇÃO (encapsulamento).
+- O programa principal enxerga o TAD como uma "caixa preta".
+- Mudanças na implementação interna do TAD não exigem alterações no programa 
+  que o utiliza (garante portabilidade, reuso, manutenção e produtividade).
+
+4. EXEMPLOS DE IMPLEMENTAÇÃO E ESTUDOS DE CASO
+-------------------------------------------------------------------------------
+A. TAD Sacola (Bag)
+   - Armazena zero ou mais elementos (com repetições).
+   - Versão 1: Vetor simples (elems[MaxElem]) e contador (used).
+     * Vantagens: Inserção rápida O(1), lógica simples.
+     * Desvantagens: Gasto de espaço desnecessário, contagem custosa O(n).
+   - Versão 2: Vetor de estruturas contendo (valor, num_ocorrencias).
+     * Otimiza o número de buscas/contagens, mantendo o vetor mais compacto.
+
+B. TAD Racional
+   - Representa o conceito matemático do quociente de dois inteiros (num / den).
+   - Operações básicas: criar, limpar, adição, multiplicação, imprimir.
+   - Estrutura em C:
+     * Header (.h): Interface pública (typedef struct racional RACIONAL; + protótipos).
+     * Módulo (.c): Implementação privada da struct e das funções.
+     * Principal (main.c): Consome as funções sem acessar a struct diretamente.
+
+5. REGRA DE OURO / EXERCÍCIO DE VERIFICAÇÃO
+-------------------------------------------------------------------------------
+- Teste de Ocultação de Informação: No arquivo main.c, tentar acessar um campo 
+  diretamente (ex: int n = rac1->num) DEVE gerar erro de compilação.
+- Se compilar e acessar, o encapsulamento foi violado e o TAD está incorreto!
+===============================================================================
