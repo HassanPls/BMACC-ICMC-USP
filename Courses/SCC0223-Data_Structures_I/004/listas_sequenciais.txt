@@ -1,0 +1,72 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material dos Profs. Adenilso Simão e Rudinei Goularte)
+Conteúdo: Lista Linear Sequencial
+===============================================================================
+
+1. CONCEITO DE LISTA LINEAR
+-------------------------------------------------------------------------------
+- Definição: Estrutura que armazena uma sequência de elementos (itens) do mesmo tipo.
+  Representação: L = (e1, e2, ..., en), onde 'n' é o tamanho da lista.
+- Característica Estrutural: A posição relativa dos elementos. 
+  Para n >= 1, e1 é o primeiro item, en é o último e ei+1 é o sucessor de ei.
+- Operações Principais: Criar, inserir (no fim ou na i-ésima posição), remover,
+  buscar, contar itens, verificar se está vazia/cheia, imprimir.
+
+2. ORDENAÇÃO DE LISTAS
+-------------------------------------------------------------------------------
+- Lista Ordenada: A posição dos elementos segue um critério (ex: alfabético, 
+  crescente ei <= ei+1, decrescente).
+  * Inserção: Feita em posição específica O(n).
+  * Busca: Sequencial O(n) ou Busca Binária O(log n).
+- Lista Não Ordenada: Os elementos não seguem uma regra de posição.
+  * Inserção: Feita nas extremidades com custo muito baixo O(1).
+  * Busca: Exige busca sequencial O(n).
+
+3. ORGANIZAÇÃO E ALOCAÇÃO DE MEMÓRIA
+-------------------------------------------------------------------------------
+- Organização Física x Lógica:
+  * Sequencial: Endereços contíguos/consecutivos na memória.
+  * Encadeada: Endereços não consecutivos (ponteiros/índices).
+- Alocação:
+  * Estática: Em tempo de compilação (arrays fixos).
+  * Dinâmica: Em tempo de execução (Heap - malloc/free).
+- Matriz de Combinações:
+  1. Sequencial e Estática: Array tradicional
+  2. Encadeada e Dinâmica: Ponteiros (Listas encadeadas)
+  3. Encadeada e Estática: Array simulando encadeamento
+  4. Sequencial e Dinâmica: Array alocado dinamicamente (realloc/malloc)
+
+4. IMPLEMENTAÇÃO DA LISTA SEQUENCIAL (ARRAY)
+-------------------------------------------------------------------------------
+- Estrutura Interna (em C):
+  * Vetor de ITENS contíguos (lista[TAM_MAX]).
+  * Indicadores de controle (inicio, fim / tamanho).
+- Mapeamento de Índices:
+  * O i-ésimo elemento da lista (1-based) fica na posição (i-1) do vetor (0-based).
+  * Acesso direto por índice é efetuado em tempo constante O(1).
+
+5. COMPLEXIDADE DAS OPERAÇÕES NA LISTA SEQUENCIAL
+-------------------------------------------------------------------------------
+- Acesso ao i-ésimo item: O(1) - Ponto Forte.
+- Inserção no Fim (Não Ordenada): O(1).
+- Inserção / Remoção no Meio (i-ésima posição): O(n) devido ao deslocamento 
+  de memória (shift de elementos à direita ou esquerda).
+- Busca Por Chave:
+  * Sequencial: O(n) [Pior caso].
+  * Binária (Apenas Lista Ordenada): O(log n).
+
+6. VANTAGENS, DESVANTAGENS E APLICAÇÕES
+-------------------------------------------------------------------------------
+- Vantagens (Pontos Fortes):
+  * Acesso direto e imediato via índice O(1).
+  * Simplicidade de implementação.
+- Desvantagens (Pontos Fracos):
+  * Movimentação custosa de elementos nas inserções e remoções intermediárias.
+  * Tamanho pré-definido / limitação de espaço (pode faltar ou haver desperdício).
+- Indicação de Uso:
+  * Listas de tamanho pequeno ou fixo/bem definido.
+  * Aplicações onde inserções e remoções ocorrem prioritariamente no fim.
+===============================================================================
