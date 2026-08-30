@@ -1,0 +1,63 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material dos Profs. Adenilso Simão e Rudinei Goularte)
+Conteúdo: Lista Linear Encadeada Estática
+===============================================================================
+
+1. CONCEITO DE LISTA LINEAR ENCADEADA ESTÁTICA
+-------------------------------------------------------------------------------
+- Definição: Estrutura lógica de nós encadeados armazenada fisicamente dentro
+  de um array estático de tamanho pré-definido.
+- Nó (NO): Composto por dois campos essenciais:
+  * item: Dado/informação do tipo ITEM armazenado.
+  * proximo: Índice (inteiro) que aponta para a posição do sucessor no vetor.
+- Organização Física vs. Lógica:
+  * Os elementos não precisam estar em endereços consecutivos no array.
+  * A ordem da lista é mantida exclusivamente pelas ligações (índices `proximo`).
+- Marcadores Especiais:
+  * inicio: Variável especial que armazena o índice do 1º elemento da lista.
+  * NULO (-1): Indica o fim da lista ou encadeamento inexistente.
+
+2. GERENCIAMENTO DA LISTA DE DISPONÍVEIS
+-------------------------------------------------------------------------------
+- No mesmo array coexistem duas listas encadeadas distintas:
+  1. Lista Principal (Lista L): Nós contendo os elementos válidos.
+  2. Lista de Disponíveis: Nós livres prontos para futuras inserções.
+- Funcionamento da Lista de Disponíveis:
+  * disponivel: Variável especial que armazena o índice do 1º nó livre.
+  * Comportamento de PILHA (LIFO): Inserção e remoção ocorrem na cabeça/início.
+  * Inserir em L -> Remove o 1º nó da lista de disponíveis.
+  * Remover de L -> Insere o nó devolvido no início da lista de disponíveis.
+- Estado Inicial (lista_criar):
+  * inicio = NULO (-1)
+  * disponivel = 0
+  * O array de disponíveis é encadeado sequencialmente: 0 -> 1 -> 2 -> ... -> TAM_MAX-1 -> NULO.
+
+3. OPERAÇÕES PRINCIPAIS E COMPLEXIDADE
+-------------------------------------------------------------------------------
+- Criar Lista: Inicializa índices `inicio` e `disponivel` e encadeia a lista livre. O(n).
+- Verificar Vazia: Retorna `inicio == NULO`. O(1).
+- Verificar Cheia: Retorna `disponivel == NULO`. O(1).
+- Inserção no Início: Pega o nó de `disponivel`, ajusta ponteiros internos e atualiza `inicio`. O(1).
+- Inserção/Remoção no Meio: Requer percorrer até a posição, ajustando apenas os índices `proximo`. O(n).
+- Busca Sequencial: Percorre a lista seguindo os campos `proximo`. O(n).
+
+4. COMPARAÇÃO: LISTA SEQUENCIAL vs. ENCADEADA ESTÁTICA
+-------------------------------------------------------------------------------
+- Vantagens:
+  * Inserção e remoção não exigem deslocamento de memória (shift de elementos).
+  * Apenas os índices/ligações são modificados ao alterar posições intermediárias.
+- Desvantagens:
+  * Acesso ao i-ésimo elemento deixa de ser direto O(1), exigindo percorrer i-1 nós O(n).
+  * Não permite Busca Binária (mesmo para listas ordenadas).
+  * Ainda requer estimativa do tamanho máximo no tempo de compilação.
+  * Sobrecusto de gerenciamento da lista de nós disponíveis.
+
+5. INDICAÇÃO DE USO
+-------------------------------------------------------------------------------
+- Ambientes com restrição de alocação dinâmica (sem malloc/heap).
+  * Sistemas embarcados ou dispositivos de baixo nível.
+- Cenários com muitas inserções/remoções intermediárias, mas com limite rígido de elementos.
+===============================================================================
