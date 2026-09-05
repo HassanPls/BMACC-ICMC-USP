@@ -1,0 +1,54 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material dos Profs. Adenilso Simão e Rudinei Goularte)
+Conteúdo: Lista Linear Encadeada Dinâmica
+===============================================================================
+
+1. CONCEITO DE LISTA LINEAR ENCADEADA DINÂMICA
+-------------------------------------------------------------------------------
+- Definição: Sequência lógica de nós encadeados alocados dinamicamente na Heap 
+  através de ponteiros (malloc/free).
+- Não Requer Estimativa de Tamanho Máximo: O limite de elementos é a própria 
+  memória RAM disponível para o programa.
+- Nó (NO): Composto por dois campos essenciais:
+  * item: Dado/informação do tipo ITEM.
+  * proximo: Ponteiro para o próximo nó da memória (`NO *proximo`).
+- Marcadores Especiais:
+  * inicio: Ponteiro para o primeiro nó da lista (`NO *inicio`).
+  * NULL: Indica o fim da lista ou encadeamento inexistente.
+
+2. OPERAÇÕES PRINCIPAIS E MANIPULAÇÃO DE PONTEIROS
+-------------------------------------------------------------------------------
+- Lista Vazia: `lista->inicio == NULL`.
+- Inserção no Início:
+  1. Aloca um novo nó (`pnovo = malloc(...)`).
+  2. Atribui o valor (`pnovo->item = item`).
+  3. Aponta o próximo do novo nó para o início atual (`pnovo->proximo = lista->inicio`).
+  4. Atualiza a cabeça da lista (`lista->inicio = pnovo`).
+  * Complexidade: O(1).
+- Inserção Meio/Fim:
+  * Requer busca/percurso até o ponto desejado.
+  * `pnovo->proximo = k->proximo; k->proximo = pnovo;`
+- Remoção por Chave/Posição:
+  * Mantém um ponteiro auxiliar `aux` para o nó anterior ao que será removido (`p`).
+  * `aux->proximo = p->proximo; free(p);`
+  * Caso especial: Remoção do 1º nó exige atualizar `lista->inicio`.
+  * Complexidade: O(n).
+- Destruição Completa (`lista_apagar`):
+  * É OBRIGATÓRIO percorrer a lista nó por nó aplicando `free()` em cada nó 
+    antes de dar `free(*lista)` na estrutura principal para evitar Memory Leak.
+
+3. COMPARAÇÃO: LISTA ENCADEADA DINÂMICA vs. DEMAIS
+-------------------------------------------------------------------------------
+- Pontos Fortes:
+  * Tamanho verdadeiramente dinâmico (não há desperdício nem limite pré-definido).
+  * Inserção e remoção no início/meio sem deslocamento de elementos em memória.
+  * Acesso via ponteiro direto (sem cálculo de deslocamento de índice de array).
+- Pontos Fracos/Desvantagens:
+  * Acesso não indexado (exige percorrer nó a nó até a posição desejada) O(n).
+  * Não permite Busca Binária.
+  * Overhead de memória (cada elemento exige bytes extras para guardar o ponteiro `proximo`).
+  * Custo computacional adicional para chamadas repetidas de `malloc` e `free`.
+===============================================================================
