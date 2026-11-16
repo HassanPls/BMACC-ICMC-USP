@@ -5,9 +5,9 @@
 
 // Definição do Nó da Lista Duplamente Encadeada (com tag struct Node nomeada)
 typedef struct Node {
-    int label;          // Rótulo da carta (1 a n)
-    struct Node* prev;  // Ponteiro para o anterior
-    struct Node* next;  // Ponteiro para o próximo
+    int label;              // Rótulo da carta (1 a n)
+    struct Node* prev;      // Ponteiro para o anterior
+    struct Node* next;      // Ponteiro para o próximo
 } Node;
 
 // Estrutura principal do Baralho
