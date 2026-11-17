@@ -1,0 +1,149 @@
+===============================================================================
+
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+
+Professora: Profa. Elaine Parros Machado de Sousa
+
+(Baseado em material do Prof. Rudinei Goularte)
+
+Conteúdo: Filas (Queues) e Deques
+
+===============================================================================
+
+
+
+1. CONCEITO DE FILA (QUEUE) E TAD FILA
+
+-------------------------------------------------------------------------------
+
+- Definição: Estrutura de dados linear para armazenar um conjunto organizado de 
+
+  elementos que segue a política FIFO (First In, First Out - o primeiro a 
+
+  entrar é o primeiro a sair).
+
+- Regras de Acesso:
+
+  * Inserção (entra): Novos elementos sempre entram no FIM da fila.
+
+  * Remoção (sai): O único elemento que pode ser retirado é o do INÍCIO da fila.
+
+- Aplicações Comuns:
+
+  * Filas de espera (ex: reserva de livros em biblioteca) e simulações.
+
+  * Gerenciamento de recursos compartilhados pelo SO (CPU, impressoras).
+
+  * Buffers de Entrada/Saída e Busca em Largura (BFS) em árvores/grafos.
+
+- Operações Principais e Auxiliares do TAD:
+
+  * `cria(F)` / `apagar(F)`: Inicializa ou libera a estrutura da fila.
+
+  * `entra(F, x)`: Insere o item `x` no fim (retorna booleano).
+
+  * `sai(F)`: Remove e retorna o item do início (retorna `NULL` se vazia).
+
+  * `frente(F)`: Consulta o 1º elemento sem removê-lo.
+
+  * `tamanho(F)`, `vazia(F)`, `cheia(F)`: Verificações de estado.
+
+
+
+2. ABORDAGENS DE IMPLEMENTAÇÃO DE FILAS
+
+-------------------------------------------------------------------------------
+
+A) Implementação Sequencial Estática (Vetor Circular):
+
+  - Problema do vetor comum: Remover do início exige deslocar todos os 
+
+    elementos seguintes O(n).
+
+  - Solução Circular (Anel): Índices `inicio` e `fim` avançam de forma circular 
+
+    utilizando aritmética modular: `indice = (indice + 1) % TAM`.
+
+  - Controle de Estado: Utiliza um contador auxiliar `tamanho` (ou `total`):
+
+    * Estado inicial: `inicio = 0; fim = 0; tamanho = 0;`
+
+    * Fila Vazia: `fila->tamanho == 0`
+
+    * Fila Cheia: `fila->tamanho == TAM`
+
+  - Complexidade: Inserção (`entra`) e Remoção (`sai`) em tempo constante O(1).
+
+
+
+B) Implementação Encadeada Dinâmica:
+
+  - Elementos armazenados em nós alocados dinamicamente na Heap (`malloc/free`).
+
+  - Ponteiros de Controle: Mantém dois ponteiros na estrutura descritora:
+
+    * `inicio`: Aponta para o 1º nó da fila (onde ocorre a remoção).
+
+    * `fim`: Aponta para o último nó da fila (onde ocorre a inserção).
+
+  - Fila Vazia: `fila->inicio == NULL` (e `fila->fim == NULL`).
+
+  - Complexidade:
+
+    * Inserção e Remoção: O(1) graças ao acesso direto pelos dois ponteiros.
+
+    * Apagar fila (`fila_apagar`): O(n), pois exige percorrer e dar `free()` 
+
+      em cada nó individualmente para evitar Memory Leak.
+
+
+
+3. DEQUES (DOUBLE ENDED QUEUES)
+
+-------------------------------------------------------------------------------
+
+- Definição: Generalização da fila que permite inserir e remover elementos em 
+
+  AMBOS os extremos (início e fim).
+
+- Operações Principais:
+
+  * `inserir_inicio(D, x)` e `inserir_fim(D, x)`
+
+  * `remover_inicio(D)` e `remover_fim(D)`
+
+  * `primeiro(D)` e `ultimo(D)` (consultas sem remoção)
+
+- Implementações Eficientes (todas as operações em O(1)):
+
+  * Sequencial Estática Circular (com aritmética modular para frente e para trás).
+
+  * Dinâmica Duplamente Encadeada (cada nó possui ponteiros `anterior` e 
+
+    `proximo`, permitindo recuar o ponteiro `fim` em O(1) na remoção).
+
+
+
+4. COMPARAÇÃO: FILA ESTÁTICA CIRCULAR vs. ENCADEADA DINÂMICA
+
+-------------------------------------------------------------------------------
+
+- Complexidade de Tempo:
+
+  * Criar, Inserir, Remover, Frente, Vazia, Cheia, Tamanho: O(1) em ambas.
+
+  * Apagar Fila: O(1) na Estática vs. O(n) na Dinâmica.
+
+- Pontos Fortes e Fracos:
+
+  * Estática Circular: Não gasta memória extra com ponteiros e não tem overhead 
+
+    de `malloc/free` por elemento, mas exige definir tamanho máximo (`TAM`).
+
+  * Encadeada Dinâmica: Cresce sob demanda (limitada apenas pela RAM), mas 
+
+    possui overhead de memória por nó para armazenar os ponteiros.
+
+===============================================================================
