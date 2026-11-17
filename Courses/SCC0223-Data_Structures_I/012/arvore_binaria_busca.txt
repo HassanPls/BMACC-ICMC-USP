@@ -1,0 +1,71 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material do Prof. Rudinei Goularte)
+Conteúdo: Árvore Binária de Busca (ABB / BST)
+===============================================================================
+
+1. CONCEITO E PROPRIEDADES DA ABB
+-------------------------------------------------------------------------------
+- Definição: Árvore binária cujas chaves armazenadas obedecem a uma relação 
+  de ordem estrita para todo nó `v`:
+  * Todos os nós na subárvore ESQUERDA de `v` possuem chaves MENORES que `v`.
+  * Todos os nós na subárvore DIREITA de `v` possuem chaves MAIORES que `v`.
+  * Não admite chaves duplicadas (chaves distintas).
+- Propriedades Importantes:
+  * Percurso Em-Ordem (In-order): Retorna todas as chaves da ABB em ordem 
+    CRESCENTE (se a regra for invertida, retorna em ordem decrescente).
+  * Sensibilidade à Ordem de Inserção: O formato e a altura da árvore dependem 
+    diretamente da sequência em que as chaves foram inseridas.
+- Vantagem sobre Listas: Combina alocação dinâmica (crescimento sob demanda, 
+  como listas encadeadas) com busca eficiente $O(\log_2 n)$ (como busca binária 
+  em arrays ordenados).
+
+2. IMPLEMENTAÇÕES E OPERAÇÕES DO TAD ABB
+-------------------------------------------------------------------------------
+A) Abordagens de Implementação:
+  - Sequencial Estática (Array por nível): Para índice `i` (base 0), filho 
+    esquerdo em `2i + 1` e direito em `2i + 2`. Não gasta memória com 
+    ponteiros, mas desperdiça espaço se a árvore não for completa/cheia.
+  - Encadeada Dinâmica (Ponteiros): Cada nó (`NO`) contém `ITEM item`, 
+    `NO *esq` e `NO *dir`; estrutura descritora guarda `NO *raiz`.
+
+B) Operações Principais (Dinâmica):
+  - Busca (`abb_buscar`): Compara chave com a raiz; se menor vai à esquerda, 
+    se maior vai à direita, até encontrar ou atingir `NULL`.
+  - Inserção (`abb_inserir`): Realiza uma busca pela chave e aloca o novo nó 
+    exatamente no ponteiro `NULL` (folha) onde a busca falhar.
+  - Remoção (`abb_remover`) — 3 Casos Fundamentais:
+    1. Nó Folha (0 filhos): Simplesmente remove e libera o nó (`free`).
+    2. Nó com 1 Subárvore (1 filho): O filho único (esq ou dir) assume 
+       diretamente o lugar do nó removido.
+    3. Nó com 2 Subárvores (2 filhos): Substitui a chave do nó removido por:
+       * O MENOR valor da subárvore direita (sucessor em-ordem), OU
+       * O MAIOR valor da subárvore esquerda (antecessor em-ordem),
+       e remove recursivamente o nó substituto (que terá no máximo 1 filho).
+  - Apagar Árvore (`abb_apagar`): Percurso em Pós-Ordem para liberar filhos 
+    antes da raiz.
+
+3. CUSTO COMPUTACIONAL E COMPLEXIDADE
+-------------------------------------------------------------------------------
+- Busca, Inserção e Remoção dependem diretamente da ALTURA `h` da árvore:
+  * Caso Médio / Árvore Balanceada: $O(\log_2 n)$
+  * Pior Caso (Árvore Degenerada / Linearizada): $O(n)$ — ocorre, por 
+    exemplo, ao inserir chaves já ordenadas (crescente ou decrescente).
+- Na remoção, após localizar o nó:
+  * Casos 1 e 2 exigem apenas rearranjo de ponteiros em tempo $O(1)$.
+  * Caso 3 exige descer até o extremo da subárvore para efetuar a troca.
+
+4. REBALANCEAMENTO DE UMA ABB
+-------------------------------------------------------------------------------
+- Problema: Sucessivas inserções e remoções desbalanceiam a ABB, degradando a 
+  busca para $O(n)$.
+- Algoritmo Estático de Rebalanceamento:
+  1. Realizar um percurso Em-Ordem na ABB para salvar as chaves em um array 
+     ordenado.
+  2. Inserir o elemento do MEIO do array como raiz da nova árvore.
+  3. Aplicar recursivamente o passo 2 para a metade esquerda (subárvore 
+     esquerda) e para a metade direita (subárvore direita).
+- Alternativa Dinâmica: Árvores auto-balanceáveis (como Árvores AVL).
+===============================================================================
