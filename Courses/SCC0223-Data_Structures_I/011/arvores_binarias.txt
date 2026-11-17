@@ -1,0 +1,66 @@
+===============================================================================
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+Professora: Profa. Elaine Parros Machado de Sousa
+(Baseado em material do Prof. Rudinei Goularte)
+Conteúdo: Árvores Binárias
+===============================================================================
+
+1. DEFINIÇÃO E PROPRIEDADES DE ÁRVORE BINÁRIA (AB)
+-------------------------------------------------------------------------------
+- Definição Recursiva: Uma Árvore Binária T é um conjunto finito de nós tal que:
+  * T = vazio (árvore vazia), OU
+  * T possui um nó especial `r` (RAIZ) e os demais nós são divididos em dois 
+    subconjuntos disjuntos, `TE` (subárvore esquerda) e `TD` (subárvore direita), 
+    que também são árvores binárias (possivelmente vazias).
+- Distinção de Ordem: Existe diferença entre filho esquerdo e filho direito; 
+  um nó pode ter apenas o filho esquerdo, apenas o direito, ambos ou nenhum.
+- Limites de Altura para uma AB com `n` nós:
+  * Altura Máxima: `h_max = n - 1` (ocorre na Árvore Degenerada, que assume o 
+    comportamento linear de uma lista encadeada).
+  * Altura Mínima: `h_min = piso(log2(n))` (ocorre quando a árvore é compacta / 
+    perfeitamente balanceada).
+
+2. CLASSIFICAÇÃO E TIPOS ESPECIAIS DE ÁRVORES BINÁRIAS
+-------------------------------------------------------------------------------
+- Árvore Estritamente Binária (ou Árvore Própria):
+  * Todo nó possui 0 (folha) ou 2 filhos (nós internos nunca têm apenas 1 filho).
+- Árvore Binária Completa (ABC) de profundidade `d`:
+  * Todas as folhas estão no nível `d` ou `d - 1`.
+  * O nível `d - 1` está totalmente preenchido.
+  * As folhas no nível `d` estão agrupadas o mais à esquerda possível.
+- Árvore Binária Completa Cheia (ABCC):
+  * É estritamente binária e TODAS as suas folhas estão no mesmo nível `d`.
+  * Relações matemáticas exatas entre profundidade `d` e total de nós `n`:
+    - Número de nós no nível `d`: `2^d`
+    - Total de nós na árvore: `n = 2^(d + 1) - 1`
+    - Profundidade em função de `n`: `d = log2(n + 1) - 1`
+- Árvore Binária Balanceada:
+  * Para cada nó, as alturas de suas subárvores esquerda e direita diferem em, 
+    no máximo, 1 (`|altura(TE) - altura(TD)| <= 1`).
+- Árvore Binária Perfeitamente Balanceada:
+  * Para cada nó, o NÚMERO DE NÓS de suas subárvores esquerda e direita difere 
+    em, no máximo, 1 (toda perfeitamente balanceada é balanceada, mas a 
+    recíproca nem sempre é verdadeira).
+
+3. PERCURSOS EM PROFUNDIDADE (TRAVESSIAS)
+-------------------------------------------------------------------------------
+- Conceito: Visitar cada nó da árvore exatamente uma única vez, linearizando a 
+  estrutura hierárquica em uma sequência. Complexidade: O(n).
+- Três Percursos Recursivos Básicos:
+  1. Pré-Ordem (Pre-order): Raiz -> Esquerda -> Direita (R-E-D)
+     * Visita a raiz primeiro, depois percorre `TE` e `TD`.
+  2. Em-Ordem (In-order): Esquerda -> Raiz -> Direita (E-R-D)
+     * Percorre `TE`, visita a raiz no meio e depois percorre `TD`.
+  3. Pós-Ordem (Post-order): Esquerda -> Direita -> Raiz (E-D-R)
+     * Percorre `TE` e `TD` primeiro, visitando a raiz por último (essencial 
+       para liberar/apagar nós de uma árvore sem perder ponteiros).
+
+4. APLICAÇÃO: ÁRVORE DE EXPRESSÕES ARITMÉTICAS
+-------------------------------------------------------------------------------
+- Estrutura: Operadores ocupam os nós internos e operandos ocupam as folhas.
+- Correspondência Direta com Notações Matemáticas (ex: `a + (b * c)`):
+  * Percurso Pré-Ordem -> Notação Pré-fixa (Polonesa): `+ a * b c`
+  * Percurso Em-Ordem  -> Notação Infixa (Comum): `a + (b * c)`
+  * Percurso Pós-Ordem -> Notação Pós-fixa (Polonesa Reversa): `a b c * +`
+===============================================================================
