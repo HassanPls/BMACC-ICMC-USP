@@ -1,0 +1,147 @@
+===============================================================================
+
+UNIVERSIDADE DE SÃO PAULO - ICMC SÃO CARLOS
+
+Disciplina: SCC0223 / SCC223 - Estruturas de Dados I
+
+Professora: Profa. Elaine Parros Machado de Sousa
+
+(Baseado em material dos Profs. Rudinei Goularte e Adenilso Simão)
+
+Conteúdo: Pilhas (Stacks)
+
+===============================================================================
+
+
+
+1. CONCEITO DE PILHA (STACK) E TAD PILHA
+
+-------------------------------------------------------------------------------
+
+- Definição: Estrutura de dados linear em que todas as inserções e remoções 
+
+  ocorrem na mesma extremidade, denominada TOPO (o outro extremo é a BASE).
+
+- Política LIFO (Last In, First Out): O último elemento a entrar na pilha é o 
+
+  primeiro a sair (analogia: pilha de livros ou bandejas).
+
+- Aplicações Clássicas:
+
+  * Controle de chamadas de procedimentos/funções (Call Stack) e recursão.
+
+  * Compiladores (análise sintática e verificação de parênteses/escopo).
+
+  * Busca em Profundidade (DFS) em árvores e grafos.
+
+  * Conversão de bases numéricas (ex: decimal para binário).
+
+  * Avaliação de expressões aritméticas em Notação Polonesa Reversa (Posfixa).
+
+- Operações Principais e Auxiliares do TAD:
+
+  * `push(P, x)`: Insere (empilha) o item `x` no topo de `P`.
+
+  * `pop(P)`: Remove (desempilha) e retorna o item do topo de `P`.
+
+  * `topo(P)`: Consulta o elemento do topo sem removê-lo.
+
+  * `criar(P)`, `apagar(P)`, `esvaziar(P)`, `tamanho(P)`, `vazia(P)`, `cheia(P)`.
+
+
+
+2. ABORDAGENS DE IMPLEMENTAÇÃO DE PILHAS
+
+-------------------------------------------------------------------------------
+
+A) Implementação Sequencial Estática (Array):
+
+  - Utiliza um vetor de tamanho fixo (`ITEM item[TAM]`) e um índice inteiro 
+
+    `topo` que controla a posição do topo e o número de elementos.
+
+  - Estado Inicial: `topo = 0` (indica próxima posição livre / pilha vazia).
+
+  - Pilha Vazia: `pilha->topo == 0` | Pilha Cheia: `pilha->topo == TAM`.
+
+  - Operações:
+
+    * `push`: `pilha->item[pilha->topo++] = item;` -> O(1).
+
+    * `pop`: `return pilha->item[--pilha->topo];` -> O(1).
+
+
+
+B) Implementação Encadeada Dinâmica (Ponteiros):
+
+  - Elementos armazenados em nós alocados dinamicamente na Heap (`malloc/free`).
+
+  - Estrutura do Nó (`NO`): Armazena `item` e ponteiro `anterior` (aponta 
+
+    para o nó imediatamente abaixo na pilha).
+
+  - Ponteiro de Controle: A estrutura descritora mantém apenas o ponteiro 
+
+    `NO *topo` (o início da lista encadeada) e um contador `tamanho`.
+
+  - Pilha Vazia: `pilha->topo == NULL` (ou `pilha->tamanho == 0`).
+
+  - Operações:
+
+    * `push`: `pnovo->anterior = pilha->topo; pilha->topo = pnovo;` -> O(1).
+
+    * `pop`: Guarda `topo`, avança `pilha->topo = topo->anterior` e dá 
+
+      `free()` no nó removido -> O(1).
+
+    * `apagar`: Percorre nó a nó dando `free()` antes de liberar a estrutura 
+
+      principal para evitar Memory Leak -> O(n).
+
+
+
+3. APLICAÇÃO PRÁTICA: NOTAÇÃO POSFIXA (POLONESA REVERSA)
+
+-------------------------------------------------------------------------------
+
+- Conceito: Os operadores sucedem os operandos, dispensando o uso de 
+
+  parênteses (ex: `(A * B) - (C / D)` equivale a `A B * C D / -`).
+
+- Algoritmo de Avaliação (da esquerda para a direita):
+
+  1. Se o símbolo lido for um OPERANDO: empilha (`push`) o valor.
+
+  2. Se o símbolo lido for um OPERADOR: desempilha (`pop`) os dois últimos 
+
+     operandos, executa a operação e empilha (`push`) o resultado.
+
+  3. Ao final da expressão, o resultado estará no topo da pilha.
+
+
+
+4. COMPARAÇÃO: PILHA ESTÁTICA vs. ENCADEADA DINÂMICA
+
+-------------------------------------------------------------------------------
+
+- Complexidade de Tempo:
+
+  * Criar, Empilhar (push), Desempilhar (pop), Topo, Vazia, Tamanho: O(1) em 
+
+    ambas as abordagens (com uso de contador `tamanho` na dinâmica).
+
+  * Apagar Pilha: O(1) na Sequencial Estática vs. O(n) na Encadeada Dinâmica.
+
+- Pontos Fortes e Fracos:
+
+  * Sequencial Estática: Acesso direto sem gasto extra de memória com 
+
+    ponteiros nem chamadas de `malloc/free` por item, mas sujeita a estouro 
+
+    de capacidade (Stack Overflow) se atingir `TAM`.
+
+  * Encadeada Dinâmica: Cresce sob demanda (limitada apenas pela RAM), mas 
+
+    possui overhead de memória por nó para armazenar o ponteiro `anterior`.
+
+===============================================================================
